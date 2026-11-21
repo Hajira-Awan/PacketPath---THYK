@@ -2,10 +2,10 @@
 # Computer Networks - Assignment 1
 
 Group Members
-Hajira Awan
-Taina Ejaz
-Yusra Ashfaq
-Abdul Rehman
+Hajira Awan,
+Taina Ejaz,
+Yusra Ashfaq,
+Abdul Rehman.
 
 What is in this repository
 This repository has our work for Assignment 1:

@@ -1,68 +1,67 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
+# ---- Compiled objects and libraries ----
 *.o
 *.obj
-
-# Precompiled Headers
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exp
+*.ilk
+*.pdb
 *.gch
 *.pch
 
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-*.so.*
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# ---- Windows executables ----
 *.exe
-*.out
-*.app
 
-# Build directories
-[Bb]uild/
-[Bb]uild-*/
+# ---- Linux executables (no file extension) ----
+hello
+daytime_server
+daytime_client
+daytime_server2
+daytime_client2
+echo_server
+echo_client
+web_server
+frame_server
+frame_client
+thread_server
+select_server
+chat_server
+chat_client
+udp_server
+udp_client
+netkv_server
+netkv_client
+
+# ---- Build folders ----
+build/
+out/
 cmake-build-*/
-
-# CMake generated files
-CMakeFiles/
 CMakeCache.txt
+CMakeFiles/
 cmake_install.cmake
 Makefile
-install_manifest.txt
-compile_commands.json
 
-# Temporary files
-*.tmp
-*.log
-*.bak
+# ---- Visual Studio ----
+.vs/
+x64/
+x86/
+Debug/
+Release/
+*.user
+*.suo
+*.vcxproj.user
+*.VC.db
+*.VC.opendb
+ipch/
+
+# ---- VS Code ----
+.vscode/
+
+# ---- OS and editor junk ----
+.DS_Store
+Thumbs.db
 *.swp
-
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
-.cache/
+*~

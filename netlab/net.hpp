@@ -236,4 +236,23 @@ inline std::tm local_time(std::time_t t) {
     return result;
 }
 
+// --- Length-prefixed messages
+constexpr uint32_t MAX_MSG = 1024 * 1024; // 1 MiB limit
+
+inline bool send_msg(socket_t s, const std::string& msg) {
+    if (msg.size() > MAX_MSG) return false;
+    uint32_t len_net = htonl(static_cast<uint32_t>(msg.size()));
+    return send_all(s, reinterpret_cast<const char*>(&len_net), sizeof len_net) &&
+           send_all(s, msg.data(), msg.size());
+}
+
+inline bool recv_msg(socket_t s, std::string& out) {
+    uint32_t len_net = 0;
+    if (!recv_all(s, reinterpret_cast<char*>(&len_net), sizeof len_net)) return false;
+    uint32_t len = ntohl(len_net);
+    if (len > MAX_MSG) return false;
+    out.assign(len, '\0');
+    return len == 0 || recv_all(s, &out[0], len);
+}
+
 } // namespace net

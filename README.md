@@ -68,12 +68,12 @@ g++ -std=c++17 -Wall -Wextra -o daytime_server daytime_server.cpp
 
 | Test | Screenshot |
 |---|---|
-| Build + run, ncat connects, shows date/time | `screenshots/01_Tutorial1_Daytime_Server/ss_01.jpeg` |
-| Multiple ncat connections, each gets a fresh timestamp | `screenshots/01_Tutorial1_Daytime_Server/ss_02.jpeg` |
-| PuTTY raw TCP configuration | `screenshots/01_Tutorial1_Daytime_Server/ss_04.jpeg` |
-| PuTTY showing the server's response | `screenshots/01_Tutorial1_Daytime_Server/ss_05.jpeg` |
-| Cross-device test: phone (Termux) connecting over LAN via `nc <server-ip> 1313` | `screenshots/01_Tutorial1_Daytime_Server/ss_06.jpeg`, `ss_07.jpeg` |
-| `netstat` confirming the listening socket on port 1313 | `screenshots/01_Tutorial1_Daytime_Server/ss_08.jpeg` |
+| Build + run, ncat connects, shows date/time | <img src="screenshots/01_Tutorial1_Daytime_Server/ss_01.jpeg" width="420"> |
+| Multiple ncat connections, each gets a fresh timestamp | <img src="screenshots/01_Tutorial1_Daytime_Server/ss_02.jpeg" width="420"> |
+| PuTTY raw TCP configuration | <img src="screenshots/01_Tutorial1_Daytime_Server/ss_04.jpeg" width="420"> |
+| PuTTY showing the server's response | <img src="screenshots/01_Tutorial1_Daytime_Server/ss_05.jpeg" width="420"> |
+| Cross-device test: phone (Termux) connecting over LAN via `nc <server-ip> 1313` | <img src="screenshots/01_Tutorial1_Daytime_Server/ss_06.jpeg" width="420"> <img src="screenshots/01_Tutorial1_Daytime_Server/ss_07.jpeg" width="420"> |
+| `netstat` confirming the listening socket on port 1313 | <img src="screenshots/01_Tutorial1_Daytime_Server/ss_08.jpeg" width="420"> |
 
 **Observation:** Server accepts one client at a time, sends the current date/time, then closes the connection as per the daytime protocol (RFC 867). Each new connection gets a fresh client port number chosen by the OS.
 
@@ -93,9 +93,9 @@ g++ -std=c++17 -Wall -Wextra -o daytime_client daytime_client.cpp -lws2_32
 
 | Test | Screenshot |
 |---|---|
-| Client build and first run | `screenshots/02_Tutorial2_Daytime_Client/ss_01.jpeg` |
-| Client with `localhost` and with `127.0.0.1` | `screenshots/02_Tutorial2_Daytime_Client/ss_02.jpeg`, `ss_03.jpeg` |
-| Server stopped → client shows `Cannot connect ... (error 10061)` | `screenshots/02_Tutorial2_Daytime_Client/ss_04.jpeg` |
+| Client build and first run | <img src="screenshots/02_Tutorial2_Daytime_Client/ss_01.jpeg" width="420"> |
+| Client with `localhost` and with `127.0.0.1` | <img src="screenshots/02_Tutorial2_Daytime_Client/ss_02.jpeg" width="420"> <img src="screenshots/02_Tutorial2_Daytime_Client/ss_03.jpeg" width="420"> |
+| Server stopped → client shows `Cannot connect ... (error 10061)` | <img src="screenshots/02_Tutorial2_Daytime_Client/ss_04.jpeg" width="420"> |
 
 **Observation:** Client reads in a loop until `recv()` returns 0 (server closed the connection). The Windows-specific error code (10061 = `WSAECONNREFUSED`) confirms error-number differences between platforms as explained in the manual.
 
@@ -111,14 +111,14 @@ g++ -std=c++17 -Wall -Wextra -o daytime_client2 daytime_client2.cpp -lws2_32
 
 | Test | Screenshot |
 |---|---|
-| PuTTY test against `daytime_server2` | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_01.jpeg` |
-| Build and run `daytime_server2` | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_02.jpeg`, `ss_03.jpeg` |
-| Run `daytime_client2` | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_04.jpeg` |
-| Rebuild both after edits | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_05.jpeg` |
-| telnet test | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_06.jpeg` |
-| `daytime_client2` shows `connect: Connection refused` once server is stopped | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_07.jpeg` |
-| `ncat --version` and `ncat` test | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_08.jpeg`, `ss_09.jpeg` |
-| PuTTY configuration for `daytime_server2` | `screenshots/03_Tutorial3_Portable_Socket_Layer/ss_10.jpeg` |
+| PuTTY test against `daytime_server2` | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_01.jpeg" width="420"> |
+| Build and run `daytime_server2` | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_02.jpeg" width="420"> <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_03.jpeg" width="420"> |
+| Run `daytime_client2` | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_04.jpeg" width="420"> |
+| Rebuild both after edits | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_05.jpeg" width="420"> |
+| telnet test | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_06.jpeg" width="420"> |
+| `daytime_client2` shows `connect: Connection refused` once server is stopped | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_07.jpeg" width="420"> |
+| `ncat --version` and `ncat` test | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_08.jpeg" width="420"> <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_09.jpeg" width="420"> |
+| PuTTY configuration for `daytime_server2` | <img src="screenshots/03_Tutorial3_Portable_Socket_Layer/ss_10.jpeg" width="420"> |
 
 **Observation:** `net.hpp` removes all the `#ifdef _WIN32` blocks from the application code. `net::Runtime` handles `WSAStartup`/`WSACleanup`, and `net::Socket` (RAII) auto-closes the handle. Error messages are now human-readable text (e.g. "connect: Connection refused") instead of raw platform-specific codes.
 
@@ -134,12 +134,12 @@ g++ -std=c++17 -Wall -Wextra -o echo_client echo_client.cpp -lws2_32
 
 | Test | Screenshot |
 |---|---|
-| Build echo_server / echo_client | `screenshots/04_Tutorial4_Echo_Server_Client/ss_01.jpeg` |
-| Client sends text, receives the same text echoed back | `screenshots/04_Tutorial4_Echo_Server_Client/ss_02.jpeg`–`ss_04.jpeg` |
-| Client disconnects (Ctrl+Z), server shows `Client disconnected` | `screenshots/04_Tutorial4_Echo_Server_Client/ss_05.jpeg`, `ss_06.jpeg` |
-| ncat test | `screenshots/04_Tutorial4_Echo_Server_Client/ss_07.jpeg`, `ss_08.jpeg` |
-| telnet test (Microsoft Telnet Client) | `screenshots/04_Tutorial4_Echo_Server_Client/ss_09.jpeg`–`ss_12.jpeg` |
-| PuTTY test | `screenshots/04_Tutorial4_Echo_Server_Client/ss_13.jpeg` |
+| Build echo_server / echo_client | <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_01.jpeg" width="420"> |
+| Client sends text, receives the same text echoed back | <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_02.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_03.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_04.jpeg" width="420"> |
+| Client disconnects (Ctrl+Z), server shows `Client disconnected` | <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_05.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_06.jpeg" width="420"> |
+| ncat test | <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_07.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_08.jpeg" width="420"> |
+| telnet test (Microsoft Telnet Client) | <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_09.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_10.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_11.jpeg" width="420"> <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_12.jpeg" width="420"> |
+| PuTTY test | <img src="screenshots/04_Tutorial4_Echo_Server_Client/ss_13.jpeg" width="420"> |
 
 **Observation:** Server reads whatever bytes arrive and immediately writes them back with `send_all()`. Tested successfully with three independent tools (ncat, telnet, PuTTY) in addition to the custom client — confirming the protocol is tool-agnostic, plain TCP.
 
@@ -158,19 +158,19 @@ g++ -std=c++17 -Wall -Wextra -o web_server web_server.cpp -lws2_32
 
 | Test | Screenshot |
 |---|---|
-| Browser: `index.html` with link to `about.html` | `screenshots/05_Tutorial5_Web_Server/ss_01.jpeg`, `ss_10.jpeg` |
-| Browser: `about.html` navigation | `screenshots/05_Tutorial5_Web_Server/ss_11.jpeg` |
-| Browser: `style.css` served with correct `Content-Type` | `screenshots/05_Tutorial5_Web_Server/ss_14.jpeg` |
-| Server log: `/favicon.ico → 404`, idle client → `400` | `screenshots/05_Tutorial5_Web_Server/ss_02.jpeg` |
-| `curl -i` → 404 Not Found for missing file | `screenshots/05_Tutorial5_Web_Server/ss_05.jpeg` |
-| `curl -I` → HEAD request, headers only | `screenshots/05_Tutorial5_Web_Server/ss_06.jpeg` |
-| `curl -i -X POST` → 405 Method Not Allowed | `screenshots/05_Tutorial5_Web_Server/ss_07.jpeg` |
-| `curl --path-as-is -i ".../../web_server.cpp"` → 400 Bad Request (path traversal blocked) | `screenshots/05_Tutorial5_Web_Server/ss_08.jpeg` |
-| `curl --path-as-is -i ".../%2e%2e/web_server.cpp"` → 400 Bad Request (decoded first, then blocked) | `screenshots/05_Tutorial5_Web_Server/ss_16.jpeg` |
-| `curl -v` showing the full raw HTTP request/response | `screenshots/05_Tutorial5_Web_Server/ss_18.jpeg` |
-| Raw request typed via `ncat` (`GET / HTTP/1.0`) | `screenshots/05_Tutorial5_Web_Server/ss_17.jpeg` |
-| Query string handled (`/?name=test` → 200) | `screenshots/05_Tutorial5_Web_Server/ss_15.jpeg` |
-| Full consolidated server access log (every test in one view) | `screenshots/05_Tutorial5_Web_Server/ss_13.jpeg` |
+| Browser: `index.html` with link to `about.html` | <img src="screenshots/05_Tutorial5_Web_Server/ss_01.jpeg" width="420"> <img src="screenshots/05_Tutorial5_Web_Server/ss_10.jpeg" width="420"> |
+| Browser: `about.html` navigation | <img src="screenshots/05_Tutorial5_Web_Server/ss_11.jpeg" width="420"> |
+| Browser: `style.css` served with correct `Content-Type` | <img src="screenshots/05_Tutorial5_Web_Server/ss_14.jpeg" width="420"> |
+| Server log: `/favicon.ico → 404`, idle client → `400` | <img src="screenshots/05_Tutorial5_Web_Server/ss_02.jpeg" width="420"> |
+| `curl -i` → 404 Not Found for missing file | <img src="screenshots/05_Tutorial5_Web_Server/ss_05.jpeg" width="420"> |
+| `curl -I` → HEAD request, headers only | <img src="screenshots/05_Tutorial5_Web_Server/ss_06.jpeg" width="420"> |
+| `curl -i -X POST` → 405 Method Not Allowed | <img src="screenshots/05_Tutorial5_Web_Server/ss_07.jpeg" width="420"> |
+| `curl --path-as-is -i ".../../web_server.cpp"` → 400 Bad Request (path traversal blocked) | <img src="screenshots/05_Tutorial5_Web_Server/ss_08.jpeg" width="420"> |
+| `curl --path-as-is -i ".../%2e%2e/web_server.cpp"` → 400 Bad Request (decoded first, then blocked) | <img src="screenshots/05_Tutorial5_Web_Server/ss_16.jpeg" width="420"> |
+| `curl -v` showing the full raw HTTP request/response | <img src="screenshots/05_Tutorial5_Web_Server/ss_18.jpeg" width="420"> |
+| Raw request typed via `ncat` (`GET / HTTP/1.0`) | <img src="screenshots/05_Tutorial5_Web_Server/ss_17.jpeg" width="420"> |
+| Query string handled (`/?name=test` → 200) | <img src="screenshots/05_Tutorial5_Web_Server/ss_15.jpeg" width="420"> |
+| Full consolidated server access log (every test in one view) | <img src="screenshots/05_Tutorial5_Web_Server/ss_13.jpeg" width="420"> |
 
 **Observation:** The server correctly serves static files with the right MIME type, returns 404 for missing files, 405 for unsupported methods, and 400 for any request that tries path traversal — both with a literal `../` and with the URL-encoded `%2e%2e` form (decoded first, then rejected, as required by Section 7.2.3 of the manual). An idle client that sends nothing is dropped after the 5-second `select()` timeout with a 400 response, confirming the server does not hang indefinitely on a non-responsive connection.
 
@@ -191,8 +191,8 @@ g++ -std=c++17 -Wall -Wextra -o frame_client frame_client.cpp -lws2_32
 
 | Test | Screenshot |
 |---|---|
-| Build frame_server / frame_client | `screenshots/06_Tutorial6_Message_Framing/ss_01.jpeg` |
-| Client sends `one two three`, server replies in upper case | `screenshots/06_Tutorial6_Message_Framing/ss_02.jpeg` |
+| Build frame_server / frame_client | <img src="screenshots/06_Tutorial6_Message_Framing/ss_01.jpeg" width="420"> |
+| Client sends `one two three`, server replies in upper case | <img src="screenshots/06_Tutorial6_Message_Framing/ss_02.jpeg" width="420"> |
 
 **Observation:** Output confirms `Reply: ONE`, `Reply: TWO`, `Reply: THREE` — each argument sent as a separate length-prefixed message is received intact by the server as a distinct message, demonstrating that `send_msg`/`recv_msg` correctly solve the TCP byte-stream framing problem (no merging/splitting of messages).
 
@@ -207,9 +207,9 @@ g++ -std=c++17 -Wall -Wextra -pthread -o thread_server thread_server.cpp -lws2_3
 
 | Test | Screenshot |
 |---|---|
-| Two `echo_client` instances connect simultaneously, `Active clients: 1` → `2` | `screenshots/07_Tutorial8_Thread_Server/ss_01.jpeg` |
-| Both clients echoed independently and concurrently | `screenshots/07_Tutorial8_Thread_Server/ss_02.jpeg` |
-| Clients disconnect, `Active clients: 1` → `0` | `screenshots/07_Tutorial8_Thread_Server/ss_04.jpeg` |
+| Two `echo_client` instances connect simultaneously, `Active clients: 1` → `2` | <img src="screenshots/07_Tutorial8_Thread_Server/ss_01.jpeg" width="420"> |
+| Both clients echoed independently and concurrently | <img src="screenshots/07_Tutorial8_Thread_Server/ss_02.jpeg" width="420"> |
+| Clients disconnect, `Active clients: 1` → `0` | <img src="screenshots/07_Tutorial8_Thread_Server/ss_04.jpeg" width="420"> |
 
 **Observation:** A new `std::thread` is spawned per accepted connection, each with its own `Socket` moved into it. An atomic counter tracks `Active clients` correctly as clients join and leave, with no clients blocking one another.
 
@@ -224,9 +224,9 @@ g++ -std=c++17 -Wall -Wextra -o select_server select_server.cpp -lws2_32
 
 | Test | Screenshot |
 |---|---|
-| Three `ncat` clients connect at once, `Active clients: 1 → 2 → 3` | `screenshots/08_Tutorial9_Select_Server/ss_01.jpeg` |
-| All three echoed independently in the same single-threaded server | `screenshots/08_Tutorial9_Select_Server/ss_02.jpeg` |
-| All three disconnect, counter goes back down to `0` | `screenshots/08_Tutorial9_Select_Server/ss_03.jpeg` |
+| Three `ncat` clients connect at once, `Active clients: 1 → 2 → 3` | <img src="screenshots/08_Tutorial9_Select_Server/ss_01.jpeg" width="420"> |
+| All three echoed independently in the same single-threaded server | <img src="screenshots/08_Tutorial9_Select_Server/ss_02.jpeg" width="420"> |
+| All three disconnect, counter goes back down to `0` | <img src="screenshots/08_Tutorial9_Select_Server/ss_03.jpeg" width="420"> |
 
 **Observation:** A single thread using `select()` serves all three clients concurrently with no threads or locks, confirming the event-driven design from Section 10 of the manual.
 
@@ -250,15 +250,15 @@ g++ -std=c++17 -Wall -Wextra -o chat_client chat_client.cpp -lws2_32
 | Req | Description | Status | Evidence |
 |---|---|---|---|
 | R1 | Server accepts up to 60 clients | ✅ (by design, `select()`-based; not individually stress-tested to 60) | — |
-| R2 | One thread + `select()` | ✅ | `screenshots/09_Assignment_Chat_System/ss_01.jpeg` |
-| R3 | Default names `user1`, `user2`, ... | ✅ | `screenshots/09_Assignment_Chat_System/ss_01.jpeg` |
-| R4 | Chat line broadcast with sender's name | ✅ | `screenshots/09_Assignment_Chat_System/ss_02.jpeg` |
-| R5 | `/nick NAME`, duplicate name rejected | ✅ | `screenshots/09_Assignment_Chat_System/ss_02.jpeg` |
-| R6 | `/who` lists connected users | ✅ | `screenshots/09_Assignment_Chat_System/ss_02.jpeg` |
-| R7 | `/quit` disconnects cleanly | ✅ | `screenshots/09_Assignment_Chat_System/ss_02.jpeg` |
-| R8 | Join/leave broadcast to others | ✅ | `screenshots/09_Assignment_Chat_System/ss_01.jpeg`, `ss_02.jpeg` |
-| R9 | Partial/merged lines handled correctly | ✅ | `screenshots/09_Assignment_Chat_System/ss_03.jpeg` |
-| R10 | Client shows incoming text while typing | ✅ (text interleaving visible as per the manual's own noted limitation, Section 11.8) | `screenshots/09_Assignment_Chat_System/ss_04.jpeg` |
+| R2 | One thread + `select()` | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_01.jpeg" width="420"> |
+| R3 | Default names `user1`, `user2`, ... | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_01.jpeg" width="420"> |
+| R4 | Chat line broadcast with sender's name | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_02.jpeg" width="420"> |
+| R5 | `/nick NAME`, duplicate name rejected | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_02.jpeg" width="420"> |
+| R6 | `/who` lists connected users | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_02.jpeg" width="420"> |
+| R7 | `/quit` disconnects cleanly | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_02.jpeg" width="420"> |
+| R8 | Join/leave broadcast to others | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_01.jpeg" width="420"> <img src="screenshots/09_Assignment_Chat_System/ss_02.jpeg" width="420"> |
+| R9 | Partial/merged lines handled correctly | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_03.jpeg" width="420"> |
+| R10 | Client shows incoming text while typing | ✅ (text interleaving visible as per the manual's own noted limitation, Section 11.8) | <img src="screenshots/09_Assignment_Chat_System/ss_04.jpeg" width="420"> |
 | R11 | Only `net.hpp` used, no `#ifdef` in app files | ✅ (verify in source — `chat_server.cpp`/`chat_client.cpp` only `#include "net.hpp"`) | — |
 
 ### Test walkthrough
@@ -280,6 +280,8 @@ and in a second terminal:
 ```
 The first terminal shows nothing for 2 seconds after the new user joins, then shows `user3: Hello` — confirming the server buffers partial data (`Hel`) until the rest of the line (`lo\n`) arrives, exactly as described in Section 11.6 of the manual. See `screenshots/09_Assignment_Chat_System/ss_03.jpeg`.
 
+<img src="screenshots/09_Assignment_Chat_System/ss_03.jpeg" width="420">
+
 ---
 
 ## Part 3: GitHub Upload (1 mark)
@@ -289,6 +291,8 @@ Code and report pushed to a public repository:
 **Repo:** `https://github.com/Hajira-Awan/PacketPath---THYK`
 
 See `screenshots/11_GitHub_Push/ss_01.jpeg` for the push confirmation.
+
+<img src="screenshots/11_GitHub_Push/ss_01.jpeg" width="420">
 
 ---
 
@@ -301,6 +305,8 @@ Two scripts were written and tested against the Tutorial 1 and Tutorial 5 server
 Opens 200 simultaneous connections to the daytime server and holds them open, then checks whether a fresh, well-behaved client can still be served.
 
 **Result:** The daytime server **survived** the attempt — see `screenshots/10_Bonus_Crash_Attempt/ss_01.jpeg`. Because Tutorial 1's daytime server sends its response and closes the connection immediately per client (it does not hold state or wait on slow clients), a connection flood alone was not enough to deny service.
+
+<img src="screenshots/10_Bonus_Crash_Attempt/ss_01.jpeg" width="420">
 
 ### 2. `crash_web.py` — target the web server's request parser
 

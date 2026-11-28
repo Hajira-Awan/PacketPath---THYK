@@ -198,7 +198,7 @@ g++ -std=c++17 -Wall -Wextra -o frame_client frame_client.cpp -lws2_32
 
 ---
 
-### Tutorial 8 — One Thread per Client
+### Tutorial 7 & 8 — One Thread per Client
 
 **Build:**
 ```
@@ -259,7 +259,7 @@ g++ -std=c++17 -Wall -Wextra -o chat_client chat_client.cpp -lws2_32
 | R8 | Join/leave broadcast to others | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_01.jpeg" width="420"> <img src="screenshots/09_Assignment_Chat_System/ss_02.jpeg" width="420"> |
 | R9 | Partial/merged lines handled correctly | ✅ | <img src="screenshots/09_Assignment_Chat_System/ss_03.jpeg" width="420"> |
 | R10 | Client shows incoming text while typing | ✅ (text interleaving visible as per the manual's own noted limitation, Section 11.8) | <img src="screenshots/09_Assignment_Chat_System/ss_04.jpeg" width="420"> |
-| R11 | Only `net.hpp` used, no `#ifdef` in app files | ✅ (verify in source — `chat_server.cpp`/`chat_client.cpp` only `#include "net.hpp"`) | — |
+| R11 | Only `net.hpp` used, no `#ifdef` in app files | ✅ (verify in source — `chat_server.cpp`/`chat_client.cpp` only `#include "net.hpp"`) | <img src="screenshots/09_Assignment_Chat_System/ss_05.jpeg" width="420"> |
 
 ### Test walkthrough
 
@@ -310,11 +310,13 @@ Opens 200 simultaneous connections to the daytime server and holds them open, th
 
 ### 2. `crash_web.py` — target the web server's request parser
 
-Targets the web server's `read_head()` function (Tutorial 5), which buffers up to 8192 bytes per connection while waiting for a complete request line (`\r\n\r\n`). The idea: hold many slow/incomplete requests open at once to exhaust the server's ability to serve new clients.
+Sends 12 malformed and edge-case raw HTTP requests to the web server one at a time (bad `%` encoding, empty request line, null byte in the path, negative or non-numeric `Content-Length`, a header line with no colon, a 9000-byte header over the 8192 cap, and so on). After each request it checks that the server is still alive and answering. The idea: one bad request that makes the server throw an uncaught exception would take the whole process down.
 
-**Result:** Also did **not** crash or deny service to the web server.
+**Result:** Also did **not** crash or deny service to the web server. Every malformed request got a proper status code (400, 404 or 405, or a normal 200) and the server stayed alive after each one.
 
-**Conclusion:** Neither script succeeded in crashing the respective server. Both Tutorial 1 and Tutorial 5 servers handle connection floods and slow/incomplete requests gracefully within the scope of what was tested — this is a reasonable (if unsuccessful) attempt at the bonus requirement, and the scripts themselves are included in the repository (`netlab/crash_daytime.py`, `netlab/crash_web.py`) as evidence of the approach taken.
+<img src="screenshots/10_Bonus_Crash_Attempt/ss_02.jpeg" width="600">
+
+**Conclusion:** Neither script succeeded in crashing the respective server. Both Tutorial 1 and Tutorial 5 servers handle a connection flood and malformed requests gracefully within the scope of what was tested — this is a reasonable (if unsuccessful) attempt at the bonus requirement, and the scripts themselves are included in the repository (`netlab/crash_daytime.py`, `netlab/crash_web.py`) as evidence of the approach taken.
 
 ---
 

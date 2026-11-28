@@ -1,7 +1,7 @@
 # Computer Networks — Assignment 1
 
 **Course:** Computer Networks
-**Due date:** 23 November
+**Due date:** 30 November
 **Group members:** Hajira Awan, Taina Ejaz, Yusra Ashfaq, Abdul Rehman
 **Environment:** Windows, VS Code integrated terminal (PowerShell), g++ (MinGW-w64), tested with ncat, telnet (Microsoft Telnet Client), PuTTY, curl, and nc (Linux/Termux for cross-device test)
 
